@@ -12,6 +12,19 @@ signupForm.addEventListener('submit', function(e) {
     });
 });
 
+// SIGN IN
+var loginForm = document.querySelector('#login-form');
+loginForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    var email = loginForm['login-email'].value;
+    var password = loginForm['login-password'].value;
+    auth.signInWithEmailAndPassword(email, password).then(function(credential) {
+        var modal = document.querySelector('#modal-login');
+        M.Modal.getInstance(modal).close();
+        signupForm.reset();
+    });
+});
+
 // LOGOUT
 var logout = document.querySelector('#logout');
 logout.addEventListener('click', function(e) {
