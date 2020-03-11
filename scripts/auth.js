@@ -11,3 +11,12 @@ signupForm.addEventListener('submit', function(e) {
         signupForm.reset();
     });
 });
+
+// LOGOUT
+var logout = document.querySelector('#logout');
+logout.addEventListener('click', function(e) {
+    e.preventDefault();
+    auth.signOut().then(function() {
+        console.log('Logged out');
+    });
+});
