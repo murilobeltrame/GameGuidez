@@ -1,5 +1,6 @@
 // LISTEN FOR AUTH STATUS CHANGES
 auth.onAuthStateChanged(function(user) {
+    setupUi(user);
     if (user) {
         // Get Data
         db.collection('guides').get().then(function(snapshot) {

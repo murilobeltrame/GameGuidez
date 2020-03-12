@@ -1,6 +1,10 @@
 // CONSTRUCT GUIDE LIST
 var guideList = document.querySelector('.guides');
 
+// MENU
+var loggedOutLinks = document.querySelectorAll('.logged-out');
+var loggedInLinks = document.querySelectorAll('.logged-in');
+
 function setupGuides(data) {
 
     if (data.length) {
@@ -18,6 +22,26 @@ function setupGuides(data) {
         guideList.innerHTML = html;
     } else {
         guideList.innerHTML = '<h5 class="center">Login to view guides</h5>';
+    }
+}
+
+function setupUi(user) {
+    if (user) {
+        //toggle ui elements
+        loggedInLinks.forEach(function(item) {
+            item.style.display = 'block';
+        });
+        loggedOutLinks.forEach(function(item) {
+            item.style.display = 'none';
+        });
+    } else {
+        //toggle ui elements
+        loggedInLinks.forEach(function(item) {
+            item.style.display = 'none';
+        });
+        loggedOutLinks.forEach(function(item) {
+            item.style.display = 'block';
+        });
     }
 }
 
