@@ -13,15 +13,20 @@ adminForm.addEventListener('submit', function(e) {
 
 // LISTEN FOR AUTH STATUS CHANGES
 auth.onAuthStateChanged(function(user) {
-    setupUi(user);
     if (user) {
+        user.getIdTokenResult().then(function(idTokenResult) {
+            user.admin = idTokenResult.claims.admin;
+            setupUi(user);
+        });
         // Get Data
         db.collection('guides').onSnapshot(function(snapshot) {
             setupGuides(snapshot.docs);
         });
     } else {
         setupGuides([]);
+        setupUi();
     }
+
 });
 
 // CREATE NEW GUIDE

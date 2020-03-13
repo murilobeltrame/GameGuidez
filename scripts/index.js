@@ -4,6 +4,7 @@ var guideList = document.querySelector('.guides');
 // MENU
 var loggedOutLinks = document.querySelectorAll('.logged-out');
 var loggedInLinks = document.querySelectorAll('.logged-in');
+var adminItems = document.querySelectorAll('.admin');
 
 // ACCOUNT DETAIL
 var accountDetail = document.querySelector('.account-details');
@@ -30,11 +31,17 @@ function setupGuides(data) {
 
 function setupUi(user) {
     if (user) {
+        console.info('Got user');
+        if (user.admin) {
+            console.info('User is an admin');
+            adminItems.forEach(function(item) { item.style.display = 'block'; });
+        }
         //account information
         db.collection('users').doc(user.uid).get().then(function(doc) {
             var html = `
                 <div>Logged in as ${user.email}</div>
                 <div>${doc.data().bio}</div>
+                <div class="pink-text">${user.admin ? 'Admin' : ''}</div>
             `;
             accountDetail.innerHTML = html;
         });
@@ -46,6 +53,7 @@ function setupUi(user) {
             item.style.display = 'none';
         });
     } else {
+        adminItems.forEach(function(item) { item.style.display = 'none'; });
         //account information
         accountDetail.innerHTML = '';
         //toggle ui elements
