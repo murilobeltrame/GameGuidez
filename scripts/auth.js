@@ -1,3 +1,16 @@
+// ADD ADMIN CLOUD FUNCTION
+var adminForm = document.querySelector('.admin-actions');
+adminForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    var adminEmail = document.querySelector('#admin-email').value;
+    var addAdminRole = functions.httpsCallable('addAdminRole');
+    addAdminRole({
+        email: adminEmail
+    }).then(function(result) {
+        console.log(result);
+    });
+});
+
 // LISTEN FOR AUTH STATUS CHANGES
 auth.onAuthStateChanged(function(user) {
     setupUi(user);
