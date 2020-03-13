@@ -5,6 +5,9 @@ var guideList = document.querySelector('.guides');
 var loggedOutLinks = document.querySelectorAll('.logged-out');
 var loggedInLinks = document.querySelectorAll('.logged-in');
 
+// ACCOUNT DETAIL
+var accountDetail = document.querySelector('.account-details');
+
 function setupGuides(data) {
 
     if (data.length) {
@@ -27,6 +30,11 @@ function setupGuides(data) {
 
 function setupUi(user) {
     if (user) {
+        //account information
+        var html = `
+            <div>Logged in as ${user.email}</div>    
+        `;
+        accountDetail.innerHTML = html;
         //toggle ui elements
         loggedInLinks.forEach(function(item) {
             item.style.display = 'block';
@@ -35,6 +43,8 @@ function setupUi(user) {
             item.style.display = 'none';
         });
     } else {
+        //account information
+        accountDetail.innerHTML = '';
         //toggle ui elements
         loggedInLinks.forEach(function(item) {
             item.style.display = 'none';

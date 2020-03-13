@@ -3,12 +3,30 @@ auth.onAuthStateChanged(function(user) {
     setupUi(user);
     if (user) {
         // Get Data
-        db.collection('guides').get().then(function(snapshot) {
+        db.collection('guides').onSnapshot(function(snapshot) {
             setupGuides(snapshot.docs);
         });
     } else {
         setupGuides([]);
     }
+});
+
+// CREATE NEW GUIDE
+var createForm = document.querySelector('#create-form');
+createForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    var title = createForm.title.value;
+    var content = createForm.content.value;
+    db.collection('guides').add({
+        title: title,
+        content: content
+    }).then(function() {
+        var modal = document.querySelector('#modal-create');
+        M.Modal.getInstance(modal).close();
+        createForm.reset();
+    }).catch(function(error) {
+        console.error(error.message);
+    });
 });
 
 // SIGN UP
