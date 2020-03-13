@@ -61,6 +61,9 @@ signupForm.addEventListener('submit', function(e) {
         var modal = document.querySelector('#modal-signup');
         M.Modal.getInstance(modal).close();
         signupForm.reset();
+        signupForm.querySelector('.error').innerHTML = '';
+    }).catch(function(error) {
+        signupForm.querySelector('.error').innerHTML = error.message;
     });
 });
 
@@ -70,10 +73,13 @@ loginForm.addEventListener('submit', function(e) {
     e.preventDefault();
     var email = loginForm['login-email'].value;
     var password = loginForm['login-password'].value;
-    auth.signInWithEmailAndPassword(email, password).then(function(credential) {
+    auth.signInWithEmailAndPassword(email, password).then(function() {
         var modal = document.querySelector('#modal-login');
         M.Modal.getInstance(modal).close();
-        signupForm.reset();
+        loginForm.reset();
+        loginForm.querySelector('.error').innerHTML = '';
+    }).catch(function(error) {
+        loginForm.querySelector('.error').innerHTML = error.message;
     });
 });
 
