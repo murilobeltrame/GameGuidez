@@ -31,10 +31,13 @@ function setupGuides(data) {
 function setupUi(user) {
     if (user) {
         //account information
-        var html = `
-            <div>Logged in as ${user.email}</div>    
-        `;
-        accountDetail.innerHTML = html;
+        db.collection('users').doc(user.uid).get().then(function(doc) {
+            var html = `
+                <div>Logged in as ${user.email}</div>
+                <div>${doc.data().bio}</div>
+            `;
+            accountDetail.innerHTML = html;
+        });
         //toggle ui elements
         loggedInLinks.forEach(function(item) {
             item.style.display = 'block';

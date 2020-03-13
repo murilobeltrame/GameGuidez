@@ -36,6 +36,10 @@ signupForm.addEventListener('submit', function(e) {
     var email = signupForm['signup-email'].value;
     var password = signupForm['signup-password'].value;
     auth.createUserWithEmailAndPassword(email, password).then(function(credential) {
+        return db.collection('users').doc(credential.user.uid).set({
+            bio: signupForm['signup-bio'].value
+        });
+    }).then(function() {
         var modal = document.querySelector('#modal-signup');
         M.Modal.getInstance(modal).close();
         signupForm.reset();
